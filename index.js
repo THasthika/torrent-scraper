@@ -72,10 +72,6 @@ function searchShow(name, season, episode, _scrapers, cb) {
         search(queries, _scrapers, cb);
 };
 
-function download(magnet) {
-
-};
-
 module.exports = {
         search: search,
         searchShow: searchShow
