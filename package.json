@@ -23,6 +23,8 @@
   "homepage": "https://github.com/tharindu96/torrent-downloader#readme",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "node-torrent": "^0.2.1"
+    "node-torrent": "^0.2.1",
+    "pad": "^1.0.0",
+    "request": "^2.72.0"
   }
 }
