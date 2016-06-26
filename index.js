@@ -1,7 +1,10 @@
+var Client = require('node-torrent');
 
 var scrapers = require('./scrapers')();
 var util = require('./util');
 
+
+// compares two torrent files
 function _compare(a, b) {
         if(a.seeders > b.seeders)
                 return -1;
@@ -9,6 +12,7 @@ function _compare(a, b) {
                 return 1;
 }
 
+// search through all the queries with the given scraper
 function searchAllQueries(queries, scraper, cb) {
         function _searchQueries(queries, entries, scraper, cb) {
                 var query = queries.pop();
@@ -21,9 +25,13 @@ function searchAllQueries(queries, scraper, cb) {
                                 cb(entries);
                 });
         }
-        _searchQueries(queries, [], scraper, cb);
+        if(scrapers[scraper] != undefined)
+                _searchQueries(queries, [], scraper, cb);
+        else
+                cb([]);
 }
 
+// search queries using the given list of available scrapers
 function searchScrapers(queries, _scrapers, cb) {
         function _searchScrapers(queries, entries, _scrapers, cb) {
                 var scraper = _scrapers.pop();
@@ -65,7 +73,7 @@ function searchShow(name, season, episode, _scrapers, cb) {
 };
 
 function download(magnet) {
-        
+
 };
 
 module.exports = {
