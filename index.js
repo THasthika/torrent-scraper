@@ -74,5 +74,6 @@ function searchShow(name, season, episode, _scrapers, cb) {
 
 module.exports = {
         search: search,
-        searchShow: searchShow
+        searchShow: searchShow,
+        scrapers: Object.keys(scrapers)
 };

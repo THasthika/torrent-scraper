@@ -4,23 +4,37 @@ Torrent Scraper is a node js library for scraping torrent sites for searching an
 
 ## Usage
 
-`search(name, callback)`
+`search(name, [scrapers,] callback)`
 
-`searchShow(show_name, season_number, episode_number, callback)`
+`searchShow(show_name, season_number, episode_number, [scrapers,] callback)`
 
 ``` javascript
 var ts = require('torrent-scraper');
 
-ts.searchShow('Game of Thrones', 1, 1, function(entries) {
+console.log(ts.scrapers); // list of all scrapers
+
+// search for game of thrones season 1 episode 2 with all scrapers
+ts.searchShow('Game of Thrones', 1, 2, function(entries) {
         var entry = entries[0];
         console.log(entry);
 });
 
+// search for suits season 1 episode 5 in the kat scraper only (kickass torrent)
+ts.searchShow('Suits', 1, 5, ['kat'], function(entries) {
+        var entry = entries[0];
+        console.log(entry);
+});
+
+// search for deadpool in all scrapers
 ts.search('Deadpool', function(entries) {
         var entry = entries[0];
         console.log(entry);
 });
 ```
+
+## Available Scrapers
+
+- kickass torrent (kat)
 
 ## Structure of a scraper
 
