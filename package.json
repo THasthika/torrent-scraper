@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tharindu96/torrent-downloader.git"
+    "url": "git+https://github.com/tharindu96/torrent-scraper.git"
   },
   "keywords": [
     "torrent",
@@ -18,9 +18,9 @@
   "author": "Tharindu Hasthika",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tharindu96/torrent-downloader/issues"
+    "url": "https://github.com/tharindu96/torrent-scraper/issues"
   },
-  "homepage": "https://github.com/tharindu96/torrent-downloader#readme",
+  "homepage": "https://github.com/tharindu96/torrent-scraper#readme",
   "dependencies": {
     "cheerio": "^0.20.0",
     "node-torrent": "^0.2.1",
