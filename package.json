@@ -1,0 +1,28 @@
+{
+  "name": "torrent-downloader",
+  "version": "0.0.1",
+  "description": "A torrent downloader with modular scraper for custom sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tharindu96/torrent-downloader.git"
+  },
+  "keywords": [
+    "torrent",
+    "scraper",
+    "downloader"
+  ],
+  "author": "Tharindu Hasthika",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tharindu96/torrent-downloader/issues"
+  },
+  "homepage": "https://github.com/tharindu96/torrent-downloader#readme",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "node-torrent": "^0.2.1"
+  }
+}
