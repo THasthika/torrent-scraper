@@ -2,6 +2,11 @@
 
 Torrent Scraper is a node js library for scraping torrent sites for searching and accessing them in a easy way. Scrapers can be added or use existing ones for scraping different torrent sites.
 
+## Available Scrapers
+
+- kickass torrent (kat)
+- isohunt (isohunt)
+
 ## Usage
 
 `search(name, [scrapers,] callback)`
@@ -31,10 +36,6 @@ ts.search('Deadpool', function(entries) {
         console.log(entry);
 });
 ```
-
-## Available Scrapers
-
-- kickass torrent (kat)
 
 ## Structure of a scraper
 

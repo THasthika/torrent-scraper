@@ -12,11 +12,10 @@ module.exports = function(query, cb) {
                 gzip: true
         }, function(err, res) {
                 var data = [];
-                // console.log();
                 var $ = cheerio.load(res.body);
                 var rows = $('table.data').children('tr:not(.firstr)');
                 for(var i = 0; i < rows.length; i++) {
-                        var _$ = cheerio.load($('table.data').children('tr:not(.firstr)')[0]);
+                        var _$ = cheerio.load(rows[i]);
                         var magnet = _$('i.ka-magnet').parent().attr('href');
                         var name = _$('a.cellMainLink').text();
                         var size = _$('td:nth-child(2)').text();
@@ -32,6 +31,6 @@ module.exports = function(query, cb) {
                                 magnet: magnet
                         });
                 }
-                cb(err, data);
+                cb(data);
         });
 };

@@ -1,6 +1,6 @@
 {
   "name": "torrent-scraper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A torrent scraping library with pluggable site scrapers",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,6 @@
   "homepage": "https://github.com/tharindu96/torrent-scraper#readme",
   "dependencies": {
     "cheerio": "^0.20.0",
-    "node-torrent": "^0.2.1",
     "pad": "^1.0.0",
     "request": "^2.72.0"
   }

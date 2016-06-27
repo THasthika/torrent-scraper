@@ -1,5 +1,3 @@
-var Client = require('node-torrent');
-
 var scrapers = require('./scrapers')();
 var util = require('./util');
 
@@ -15,14 +13,14 @@ function _compare(a, b) {
 // search through all the queries with the given scraper
 function searchAllQueries(queries, scraper, cb) {
         function _searchQueries(queries, entries, scraper, cb) {
+                if(queries.length == 0) {
+                        cb(entries);
+                        return;
+                }
                 var query = queries.pop();
-                scrapers[scraper](query, function(err, data) {
-                        if(err) throw err;
+                scrapers[scraper](query, function(data) {
                         entries = entries.concat(data);
-                        if(queries.length > 0)
-                                _searchQueries(queries, entries, scraper, cb);
-                        else
-                                cb(entries);
+                        _searchQueries(queries, entries, scraper, cb);
                 });
         }
         if(scrapers[scraper] != undefined)
@@ -34,6 +32,10 @@ function searchAllQueries(queries, scraper, cb) {
 // search queries using the given list of available scrapers
 function searchScrapers(queries, _scrapers, cb) {
         function _searchScrapers(queries, entries, _scrapers, cb) {
+                if(_scrapers.length == 0) {
+                        cb(entries);
+                        return;
+                }
                 var scraper = _scrapers.pop();
                 searchAllQueries(queries, scraper, function(data) {
                         for(var j = 0; j < data.length; j++) {
@@ -46,10 +48,7 @@ function searchScrapers(queries, _scrapers, cb) {
                                 }
                                 if(!found) entries.push(data[j]);
                         }
-                        if(_scrapers.length > 0)
-                                _searchScrapers(queries, entries, _scrapers, cb);
-                        else
-                                cb(entries);
+                        _searchScrapers(queries, entries, _scrapers, cb);
                 });
         }
         _searchScrapers(queries, [], _scrapers, function(entries) {
