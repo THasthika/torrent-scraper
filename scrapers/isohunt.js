@@ -30,7 +30,9 @@ function getMagnets(torrents, limit, cb) {
                         name: t.name,
                         size: t.size,
                         magnet: magnet,
-                        seeders: t.seeders
+                        seeders: t.seeders,
+                        leechers: null,
+                        files: null
                 });
                 if(torrents.length > 0) {
                         var torrent = torrents.pop();

@@ -37,7 +37,8 @@ function searchScrapers(queries, _scrapers, cb) {
                         return;
                 }
                 var scraper = _scrapers.pop();
-                searchAllQueries(queries, scraper, function(data) {
+                var q = queries.slice();
+                searchAllQueries(q, scraper, function(data) {
                         for(var j = 0; j < data.length; j++) {
                                 var found = false;
                                 for(var i = 0; i < entries.length; i++) {
