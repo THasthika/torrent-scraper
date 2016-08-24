@@ -18,8 +18,9 @@ function searchAllQueries(queries, scraper, cb) {
                         return;
                 }
                 var query = queries.pop();
-                scrapers[scraper](query, function(data) {
-                        entries = entries.concat(data);
+                scrapers[scraper](query, function(err, data) {
+			if(!err)
+                        	entries = entries.concat(data);
                         _searchQueries(queries, entries, scraper, cb);
                 });
         }
@@ -60,6 +61,7 @@ function searchScrapers(queries, _scrapers, cb) {
 
 function search(query, _scrapers, cb) {
         if(typeof query == "string") query = [query];
+	if(typeof _scrapers == "string") _scrapers = [_scrapers];
         if(typeof _scrapers == "function") {
                 cb = _scrapers;
                 _scrapers = Object.keys(scrapers);

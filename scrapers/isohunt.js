@@ -12,9 +12,12 @@ function getMagnet(link, cb) {
                 url: url,
                 gzip: true
         }, function(err, res) {
+		if(err) {
+			return cb(true, null);
+		}
                 $ = cheerio.load(res.body);
-                var magnet = $('div.p div.btn-group a:nth-child(2)').attr('href');
-                cb(magnet);
+		var magnet = $('div.p div.btn-group a:nth-child(2)').attr('href');
+		cb(null, magnet);
         });
 }
 
@@ -23,60 +26,39 @@ function getMagnets(torrents, limit, cb) {
         var finished = false;
         var torrent_count = torrents.length;
         var finished_count = 0;
+	
+	if(torrents.length == 0) return cb(null, []);
 
-        function _callback(t, magnet) {
+        function _callback(err, t, magnet) {
                 finished_count++;
-                entries.push({
-                        name: t.name,
-                        size: t.size,
-                        magnet: magnet,
-                        seeders: t.seeders,
-                        leechers: null,
-                        files: null
-                });
+                if(!err) {
+			entries.push({
+                        	name: t.name,
+                        	size: t.size,
+                        	magnet: magnet,
+                        	seeders: t.seeders,
+                        	leechers: null,
+                        	files: null
+                	});
+		}
                 if(torrents.length > 0) {
                         var torrent = torrents.pop();
                         getMagnet(torrent.link, function(magnet) {
                                 _callback(torrent, magnet);
                         });
                 } else if(finished_count == torrent_count && !finished) {
-                        finished = true;
-                        cb(entries);
+                        cb(null, entries);
                 }
         };
 
         for(var i = 0; i < torrents.length && i < limit; i++) {
                 (function(t) {
-                        getMagnet(t.link, function(magnet) {
-                                _callback(t, magnet);
+                        getMagnet(t.link, function(err, magnet) {
+                                _callback(err, t, magnet);
                         });
                 })(torrents.pop());
         }
 }
-
-// function getMagnets(torrents, entries, cb) {
-//         if(torrents.length == 0) {
-//                 cb(entries);
-//                 return;
-//         }
-//         var torrent = torrents.pop();
-//         var url = util.format(BASE_URL, {path: torrent.link});
-//         console.log(entries.length);
-//         request({
-//                 url: url,
-//                 gzip: true
-//         }, function(err, res) {
-//                 $ = cheerio.load(res.body);
-//                 var magnet = $('div.p div.btn-group a:nth-child(2)').attr('href');
-//                 entries.push({
-//                         name: torrent.name,
-//                         size: torrent.size,
-//                         magnet: magnet,
-//                         seeders: torrent.seeders
-//                 });
-//                 getMagnets(torrents, entries, cb);
-//         });
-// }
 
 module.exports = function(query, cb) {
         var url = util.format(SEARCH_URL, {query: query});
@@ -84,6 +66,11 @@ module.exports = function(query, cb) {
                 url: url,
                 gzip: true
         }, function(err, res) {
+
+                if (err) {
+                    return cb(true, []);
+                }
+
                 var $ = cheerio.load(res.body);
                 var rows = $('div#search-list table tbody').children('tr');
 
@@ -101,10 +88,6 @@ module.exports = function(query, cb) {
                                 seeders: seeders,
                                 link: link
                         });
-                }
-                
-                if (err) {
-                    return cb(null, err);
                 }
                 
                 getMagnets(torrs, 10, cb);
