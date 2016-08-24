@@ -102,7 +102,11 @@ module.exports = function(query, cb) {
                                 link: link
                         });
                 }
-
+                
+                if (err) {
+                    return cb(null, err);
+                }
+                
                 getMagnets(torrs, 10, cb);
         });
 };

@@ -31,6 +31,6 @@ module.exports = function(query, cb) {
                                 magnet: magnet
                         });
                 }
-                cb(data);
+                cb(data, err);
         });
 };
