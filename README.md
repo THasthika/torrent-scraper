@@ -53,14 +53,14 @@ module.exports = function(query, cb) {
         var url = util.format(SEARCH_URL, {query: query});
 
         // search the site that you choose
-
-        return {
+	// the callback must be called from the function with the format below
+        cb(err, [{
                 name: name, // name of the torrent (required)
                 size: size, // size of the torrent (optional)
                 files: files, // file count of the torrent (optional)
                 seeders: seeders, // seeders of the torrent (required)
                 leechers: leechers, // leechers of the torrent (optional)
                 magnet: magnet // magnet link of the torrent (required)
-        }
+        }]);
 };
 ```
