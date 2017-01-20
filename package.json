@@ -1,6 +1,6 @@
 {
   "name": "torrent-scraper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A torrent scraping library with pluggable site scrapers",
   "main": "index.js",
   "scripts": {
