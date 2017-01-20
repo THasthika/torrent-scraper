@@ -66,7 +66,6 @@ module.exports = function(query, cb) {
                 url: url,
                 gzip: true
         }, function(err, res) {
-
                 if (err) {
                     return cb(true, []);
                 }
